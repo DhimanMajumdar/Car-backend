@@ -1,4 +1,3 @@
-// models/Car.js
 const mongoose = require('mongoose');
 
 const CarSchema = new mongoose.Schema({
@@ -6,7 +5,6 @@ const CarSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
   tags: [String],
-  images: [String],
 });
 
 module.exports = mongoose.model('Car', CarSchema);

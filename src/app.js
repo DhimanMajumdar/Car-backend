@@ -7,7 +7,6 @@ const authRoutes = require("./routes/authRoutes");
 const carRoutes = require("./routes/carRoutes");
 
 const cors = require("cors");
-const path = require("path");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -23,10 +22,19 @@ connectDB()
   });
 
 
-app.use(cors());
+  app.use(
+    cors({
+      origin: 'http://localhost:3000', // Allow requests from the frontend
+      credentials: true,
+    })
+  );
 app.use(express.json());
+const path = require('path');
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
+
+
 app.use("/api/users", authRoutes);
 app.use("/api/cars", carRoutes);
 

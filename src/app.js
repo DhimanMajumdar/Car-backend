@@ -38,4 +38,7 @@ app.use(express.json());
 // Routes
 app.use("/api/users", authRoutes);
 app.use("/api/cars", carRoutes);
+app.get("/", (req, res) => {
+res.send("Welcome to the backend server! The server is up and running.");
+});
 

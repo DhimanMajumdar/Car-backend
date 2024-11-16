@@ -1,15 +1,18 @@
 // server.js
-require("dotenv").config();
+require("dotenv").config();  // Ensure environment variables are loaded from .env
 const express = require("express");
-
+const cors = require("cors");  // Make sure cors is required
 const connectDB = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
 const carRoutes = require("./routes/carRoutes");
 
-const cors = require("cors");
-
-const PORT = process.env.PORT || 5000;
 const app = express();
+
+// Load environment variables
+const PORT = process.env.PORT;
+const REACT_FRONTEND_API_URL = process.env.REACT_FRONTEND_API_URL;
+
+// Establish database connection
 connectDB()
   .then(() => {
     console.log("Database connection established...");
@@ -18,23 +21,21 @@ connectDB()
     });
   })
   .catch((err) => {
-    console.error("Database cannot be connected!!",err);
+    console.error("Database cannot be connected!!", err);
   });
 
+// CORS configuration to allow requests from the React frontend
+app.use(
+  cors({
+    origin: REACT_FRONTEND_API_URL,  // Allow requests from the React frontend
+    credentials: true,               // If you're sending cookies or authentication headers
+  })
+);
 
-  app.use(
-    cors({
-      origin: 'http://localhost:3000', // Allow requests from the frontend
-      credentials: true,
-    })
-  );
+// Middleware for JSON parsing
 app.use(express.json());
-const path = require('path');
 
-
-
-
-
+// Routes
 app.use("/api/users", authRoutes);
 app.use("/api/cars", carRoutes);
 

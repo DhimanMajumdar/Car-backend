@@ -6,8 +6,8 @@ const authRoutes = require("./routes/authRoutes");
 const carRoutes = require("./routes/carRoutes");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const REACT_FRONTEND_API_URL = process.env.REACT_FRONTEND_API_URL || "http://localhost:3000";
+const PORT = process.env.PORT;
+const REACT_FRONTEND_API_URL = process.env.REACT_FRONTEND_API_URL;
 
 connectDB()
   .then(() => {

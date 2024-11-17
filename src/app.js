@@ -7,7 +7,7 @@ const carRoutes = require("./routes/carRoutes");
 
 const app = express();
 const PORT = process.env.PORT;
-const REACT_FRONTEND_API_URL = process.env.REACT_FRONTEND_API_URL;
+
 
 connectDB()
   .then(() => {
@@ -20,10 +20,7 @@ connectDB()
     console.error("Database cannot be connected!!", err);
   });
 
-app.use(cors({
-  origin: REACT_FRONTEND_API_URL,
-  credentials: true,
-}));
+app.use(cors());
 
 app.use(express.json());
 
